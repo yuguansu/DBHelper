@@ -1,0 +1,12 @@
+e:\Projects_VS\DAL.OracleHelper\TestClientStandalone\bin\Debug\TestClientStandalone.exe.config
+e:\Projects_VS\DAL.OracleHelper\TestClientStandalone\bin\Debug\TestClientStandalone.exe
+e:\Projects_VS\DAL.OracleHelper\TestClientStandalone\bin\Debug\TestClientStandalone.pdb
+e:\Projects_VS\DAL.OracleHelper\TestClientStandalone\bin\Debug\Oracle.ManagedDataAccess.dll
+e:\Projects_VS\DAL.OracleHelper\TestClientStandalone\obj\Debug\TestClientStandalone.csprojAssemblyReference.cache
+e:\Projects_VS\DAL.OracleHelper\TestClientStandalone\obj\Debug\TestClientStandalone.Form1.resources
+e:\Projects_VS\DAL.OracleHelper\TestClientStandalone\obj\Debug\TestClientStandalone.Properties.Resources.resources
+e:\Projects_VS\DAL.OracleHelper\TestClientStandalone\obj\Debug\TestClientStandalone.csproj.GenerateResource.cache
+e:\Projects_VS\DAL.OracleHelper\TestClientStandalone\obj\Debug\TestClientStandalone.csproj.CoreCompileInputs.cache
+e:\Projects_VS\DAL.OracleHelper\TestClientStandalone\obj\Debug\TestClientStandalone.csproj.CopyComplete
+e:\Projects_VS\DAL.OracleHelper\TestClientStandalone\obj\Debug\TestClientStandalone.exe
+e:\Projects_VS\DAL.OracleHelper\TestClientStandalone\obj\Debug\TestClientStandalone.pdb
