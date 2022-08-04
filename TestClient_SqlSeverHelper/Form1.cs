@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using SqlServerHelper;
+using DBHelper;
 
 namespace TestClient_SqlSeverAlone
 {
@@ -97,7 +91,7 @@ namespace TestClient_SqlSeverAlone
         {
             string sql = "select * from ees_ss_user";
             DataSet ds = new DataSet();
-            ds = SqlServerHelperUtils.ExecuteSQLQuery(sql);
+            ds = SqlServerHelper.ExecuteSQLQuery(sql);
             if (ds != null)
             {
                 dgv.DataSource = ds.Tables[0];
@@ -110,7 +104,7 @@ namespace TestClient_SqlSeverAlone
             {
                 //PROC_EES_S_PDLINE_SELECT
                 DataSet ds = new DataSet();
-                ds = SqlServerHelperUtils.ExecuteProcedureQuery("PROC_EES_S_PDLINE_SELECT");
+                ds = SqlServerHelper.ExecuteProcedureQuery("PROC_EES_S_PDLINE_SELECT");
                 if (ds != null)
                 {
                     dgv.DataSource = ds.Tables[0];

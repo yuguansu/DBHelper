@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
+using DBHelper;
 
 namespace TestClient
 {
@@ -29,7 +30,7 @@ namespace TestClient
 
             try
             {
-                DataTable dtTemp = OracleHelper.OracleHelperUtils.GetTableSQL(sSQL);
+                DataTable dtTemp = OracleHelper.GetTableSQL(sSQL);
                 dgvData.DataSource = dtTemp;
                 LogLocal(rtxLog, "\nconnect finish ", 2);
             }

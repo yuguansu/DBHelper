@@ -1,0 +1,13 @@
+E:\Projects\dev_on_git\DBHelper\TestClient_OracleAlone\bin\Debug\TestClientStandalone.exe.config
+E:\Projects\dev_on_git\DBHelper\TestClient_OracleAlone\bin\Debug\TestClientStandalone.exe
+E:\Projects\dev_on_git\DBHelper\TestClient_OracleAlone\bin\Debug\TestClientStandalone.pdb
+E:\Projects\dev_on_git\DBHelper\TestClient_OracleAlone\bin\Debug\Oracle.ManagedDataAccess.dll
+E:\Projects\dev_on_git\DBHelper\TestClient_OracleAlone\obj\Debug\TestClient_Net48_OracleAlone.csproj.AssemblyReference.cache
+E:\Projects\dev_on_git\DBHelper\TestClient_OracleAlone\obj\Debug\TestClient_Net48_OracleAlone.csproj.SuggestedBindingRedirects.cache
+E:\Projects\dev_on_git\DBHelper\TestClient_OracleAlone\obj\Debug\TestClientStandalone.Form1.resources
+E:\Projects\dev_on_git\DBHelper\TestClient_OracleAlone\obj\Debug\TestClientStandalone.Properties.Resources.resources
+E:\Projects\dev_on_git\DBHelper\TestClient_OracleAlone\obj\Debug\TestClient_Net48_OracleAlone.csproj.GenerateResource.cache
+E:\Projects\dev_on_git\DBHelper\TestClient_OracleAlone\obj\Debug\TestClient_Net48_OracleAlone.csproj.CoreCompileInputs.cache
+E:\Projects\dev_on_git\DBHelper\TestClient_OracleAlone\obj\Debug\TestClient_Net48_OracleAlone.csproj.CopyComplete
+E:\Projects\dev_on_git\DBHelper\TestClient_OracleAlone\obj\Debug\TestClientStandalone.exe
+E:\Projects\dev_on_git\DBHelper\TestClient_OracleAlone\obj\Debug\TestClientStandalone.pdb
