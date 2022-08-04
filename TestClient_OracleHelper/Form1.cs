@@ -29,7 +29,7 @@ namespace TestClient
 
             try
             {
-                DataTable dtTemp = OracleHelper.SQLHelper.GetTableSQL(sSQL);
+                DataTable dtTemp = OracleHelper.OracleHelperUtils.GetTableSQL(sSQL);
                 dgvData.DataSource = dtTemp;
                 LogLocal(rtxLog, "\nconnect finish ", 2);
             }

@@ -6,7 +6,7 @@ using System.Data;
 
 namespace OracleHelper
 {
-    public class SQLHelper
+    public class OracleHelperUtils
     {
         //连接字符串
         static string strConn = ConfigurationManager.ConnectionStrings["oraConn"].ToString();
@@ -51,8 +51,6 @@ namespace OracleHelper
             }
             return dt;
         }
-
-
 
         #endregion
         
@@ -332,9 +330,6 @@ namespace OracleHelper
         
         /*
         #region 批量插入数据---------------------------------------------
-
-
-
 
         /// <summary>
         /// 往数据库中批量插入数据

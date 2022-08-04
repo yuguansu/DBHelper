@@ -1,0 +1,12 @@
+E:\Projects\dev_on_git\DBHelper\NpgsqlHelper\bin\Debug\net6.0\NpgsqlHelper.deps.json
+E:\Projects\dev_on_git\DBHelper\NpgsqlHelper\bin\Debug\net6.0\NpgsqlHelper.dll
+E:\Projects\dev_on_git\DBHelper\NpgsqlHelper\bin\Debug\net6.0\NpgsqlHelper.pdb
+E:\Projects\dev_on_git\DBHelper\NpgsqlHelper\obj\Debug\net6.0\NpgsqlHelper.csproj.AssemblyReference.cache
+E:\Projects\dev_on_git\DBHelper\NpgsqlHelper\obj\Debug\net6.0\NpgsqlHelper.GeneratedMSBuildEditorConfig.editorconfig
+E:\Projects\dev_on_git\DBHelper\NpgsqlHelper\obj\Debug\net6.0\NpgsqlHelper.AssemblyInfoInputs.cache
+E:\Projects\dev_on_git\DBHelper\NpgsqlHelper\obj\Debug\net6.0\NpgsqlHelper.AssemblyInfo.cs
+E:\Projects\dev_on_git\DBHelper\NpgsqlHelper\obj\Debug\net6.0\NpgsqlHelper.csproj.CoreCompileInputs.cache
+E:\Projects\dev_on_git\DBHelper\NpgsqlHelper\obj\Debug\net6.0\NpgsqlHelper.dll
+E:\Projects\dev_on_git\DBHelper\NpgsqlHelper\obj\Debug\net6.0\refint\NpgsqlHelper.dll
+E:\Projects\dev_on_git\DBHelper\NpgsqlHelper\obj\Debug\net6.0\NpgsqlHelper.pdb
+E:\Projects\dev_on_git\DBHelper\NpgsqlHelper\obj\Debug\net6.0\ref\NpgsqlHelper.dll
