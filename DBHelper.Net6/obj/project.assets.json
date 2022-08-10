@@ -2618,11 +2618,11 @@
     "C:\\Users\\su\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "1.0.3",
     "restore": {
-      "projectUniqueName": "E:\\Projects\\dev_on_git\\DBHelper\\DBHelper.Net6\\DBHelper.Net6.csproj",
-      "projectName": "DBHelper.Net6",
-      "projectPath": "E:\\Projects\\dev_on_git\\DBHelper\\DBHelper.Net6\\DBHelper.Net6.csproj",
+      "projectUniqueName": "E:\\Projects\\dev_on_git\\DBHelper\\DBHelper.Net6\\DBHelper.NetCore.csproj",
+      "projectName": "DBHelper.NetCore",
+      "projectPath": "E:\\Projects\\dev_on_git\\DBHelper\\DBHelper.Net6\\DBHelper.NetCore.csproj",
       "packagesPath": "C:\\Users\\su\\.nuget\\packages\\",
       "outputPath": "E:\\Projects\\dev_on_git\\DBHelper\\DBHelper.Net6\\obj\\",
       "projectStyle": "PackageReference",
