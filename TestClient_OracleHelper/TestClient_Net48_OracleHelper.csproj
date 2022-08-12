@@ -87,7 +87,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DBHelper.Net48\DBHelper.Net.csproj">
+    <ProjectReference Include="..\DBHelper.Net48\DBHelper.Net48.csproj">
       <Project>{08e0a021-5933-4ef7-9a19-4625c79766aa}</Project>
       <Name>DBHelper.Net48</Name>
     </ProjectReference>

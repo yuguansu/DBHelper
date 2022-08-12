@@ -1,11 +1,10 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("DBHelper.Net")]
+[assembly: AssemblyTitle("DBHelper.Net48")]
 [assembly: AssemblyDescription("Debug!!!DBHelper for Oracle , SQLServer , PostgreSQL with .net framework 4.8. \n Source code: https://github.com/yuguansu/DBHelper")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("chrlee")]
