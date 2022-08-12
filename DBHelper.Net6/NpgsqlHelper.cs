@@ -29,9 +29,9 @@ namespace DBHelper
         /// </summary>
         /// <param name="connection"><see cref="NpgsqlConnection"/> object to use</param>
         /// <param name="commandText">Npgsql command to be executed</param>
-        /// <param name="commandParameters">Array of <see cref="NpgsqlParameter"/> objects to use with the command.</param>
+        /// <param name="parameters">Array of <see cref="NpgsqlParameter"/> objects to use with the command.</param>
         /// <returns></returns>
-        public static int ExecuteNonQuery(this NpgsqlConnection connection, string commandText, params NpgsqlParameter[] commandParameters)
+        public static int ExecuteNonQuery(this NpgsqlConnection connection, string commandText, params NpgsqlParameter[]? parameters)
         {
             //create a command and prepare it for execution
             NpgsqlCommand cmd = new NpgsqlCommand();
@@ -39,8 +39,8 @@ namespace DBHelper
             cmd.CommandText = commandText;
             cmd.CommandType = CommandType.Text;
 
-            if (commandParameters != null)
-                foreach (NpgsqlParameter p in commandParameters)
+            if (parameters != null)
+                foreach (NpgsqlParameter p in parameters)
                     cmd.Parameters.Add(p);
 
             int result = cmd.ExecuteNonQuery();
@@ -55,9 +55,9 @@ namespace DBHelper
         /// </summary>
         /// <param name="connectionString"><see cref="NpgsqlConnection.ConnectionString"/> to use</param>
         /// <param name="commandText">Npgsql command to be executed</param>
-        /// <param name="parms">Array of <see cref="NpgsqlParameter"/> objects to use with the command.</param>
+        /// <param name="parameters">Array of <see cref="NpgsqlParameter"/> objects to use with the command.</param>
         /// <returns></returns>
-        public static int ExecuteNonQuery(string connectionString, string commandText, params NpgsqlParameter[] parms)
+        public static int ExecuteNonQuery(string connectionString, string commandText, params NpgsqlParameter[]? parameters)
         {
             //create & open a NpgsqlConnection, and dispose of it after we are done.
             using (NpgsqlConnection cn = new NpgsqlConnection(connectionString))
@@ -65,7 +65,7 @@ namespace DBHelper
                 cn.Open();
 
                 //call the overload that takes a connection in place of the connection string
-                return ExecuteNonQuery(cn, commandText, parms);
+                return ExecuteNonQuery(cn, commandText, parameters);
             }
         }
         #endregion
@@ -78,11 +78,11 @@ namespace DBHelper
         /// </summary>
         /// <param name="connectionString">Settings to be used for the connection</param>
         /// <param name="commandText">Command to execute</param>
-        /// <param name="parms">Parameters to use for the command</param>
+        /// <param name="parameters">Parameters to use for the command</param>
         /// <returns>DataRow containing the first row of the resultset</returns>
-        public static DataRow ExecuteDataRow(string connectionString, string commandText, params NpgsqlParameter[] parms)
+        public static DataRow? ExecuteDataRow(string connectionString, string commandText, params NpgsqlParameter[] parameters)
         {
-            DataSet ds = ExecuteDataset(connectionString, commandText, parms);
+            DataSet? ds = ExecuteDataset(connectionString, commandText, parameters);
             if (ds == null) return null;
             if (ds.Tables.Count == 0) return null;
             if (ds.Tables[0].Rows.Count == 0) return null;
@@ -96,10 +96,10 @@ namespace DBHelper
         /// <param name="connectionString">Settings to be used for the connection</param>
         /// <param name="commandText">Command to execute</param>
         /// <returns><see cref="DataSet"/> containing the resultset</returns>
-        public static DataSet ExecuteDataset(string connectionString, string commandText)
+        public static DataSet? ExecuteDataset(string connectionString, string commandText)
         {
             //pass through the call providing null for the set of NpgsqlParameters
-            return ExecuteDataset(connectionString, commandText, (NpgsqlParameter[])null);
+            return ExecuteDataset(connectionString, commandText, null);
         }
 
         /// <summary>
@@ -108,9 +108,9 @@ namespace DBHelper
         /// </summary>
         /// <param name="connectionString">Settings to be used for the connection</param>
         /// <param name="commandText">Command to execute</param>
-        /// <param name="commandParameters">Parameters to use for the command</param>
+        /// <param name="parameters">Parameters to use for the command</param>
         /// <returns><see cref="DataSet"/> containing the resultset</returns>
-        public static DataSet ExecuteDataset(string connectionString, string commandText, params NpgsqlParameter[] commandParameters)
+        public static DataSet? ExecuteDataset(string connectionString, string commandText, params NpgsqlParameter[]? parameters)
         {
             //create & open a NpgsqlConnection, and dispose of it after we are done.
             using (NpgsqlConnection cn = new NpgsqlConnection(connectionString))
@@ -118,7 +118,7 @@ namespace DBHelper
                 cn.Open();
 
                 //call the overload that takes a connection in place of the connection string
-                return ExecuteDataset(cn, commandText, commandParameters);
+                return ExecuteDataset(cn, commandText, parameters);
             }
         }
 
@@ -130,10 +130,10 @@ namespace DBHelper
         /// <param name="connection"><see cref="NpgsqlConnection"/> object to use</param>
         /// <param name="commandText">Command to execute</param>
         /// <returns><see cref="DataSet"/> containing the resultset</returns>
-        public static DataSet ExecuteDataset(this NpgsqlConnection connection, string commandText)
+        public static DataSet? ExecuteDataset(this NpgsqlConnection connection, string commandText)
         {
             //pass through the call providing null for the set of NpgsqlParameters
-            return ExecuteDataset(connection, commandText, (NpgsqlParameter[])null);
+            return ExecuteDataset(connection, commandText, null);
         }
 
         /// <summary>
@@ -143,9 +143,9 @@ namespace DBHelper
         /// </summary>
         /// <param name="connection"><see cref="NpgsqlConnection"/> object to use</param>
         /// <param name="commandText">Command to execute</param>
-        /// <param name="commandParameters">Parameters to use for the command</param>
+        /// <param name="parameters">Parameters to use for the command</param>
         /// <returns><see cref="DataSet"/> containing the resultset</returns>
-        public static DataSet ExecuteDataset(this NpgsqlConnection connection, string commandText, params NpgsqlParameter[] commandParameters)
+        public static DataSet? ExecuteDataset(this NpgsqlConnection connection, string commandText, params NpgsqlParameter[]? parameters)
         {
             //create a command and prepare it for execution
             NpgsqlCommand cmd = new NpgsqlCommand();
@@ -153,8 +153,8 @@ namespace DBHelper
             cmd.CommandText = commandText;
             cmd.CommandType = CommandType.Text;
 
-            if (commandParameters != null)
-                foreach (NpgsqlParameter p in commandParameters)
+            if (parameters != null)
+                foreach (NpgsqlParameter p in parameters)
                     cmd.Parameters.Add(p);
 
             //create the DataAdapter & DataSet
@@ -199,10 +199,10 @@ namespace DBHelper
         /// <param name="connection"><see cref="NpgsqlConnection"/> object to use for the command</param>
         /// <param name="transaction"><see cref="NpgsqlTransaction"/> object to use for the command</param>
         /// <param name="commandText">Command text to use</param>
-        /// <param name="commandParameters">Array of <see cref="NpgsqlParameter"/> objects to use with the command</param>
+        /// <param name="parameters">Array of <see cref="NpgsqlParameter"/> objects to use with the command</param>
         /// <param name="ExternalConn">True if the connection should be preserved, false if not</param>
         /// <returns><see cref="NpgsqlDataReader"/> object ready to read the results of the command</returns>
-        private static NpgsqlDataReader ExecuteReader(this NpgsqlConnection connection, NpgsqlTransaction transaction, string commandText, NpgsqlParameter[] commandParameters, bool ExternalConn)
+        private static NpgsqlDataReader? ExecuteReader(this NpgsqlConnection connection, NpgsqlTransaction? transaction, string commandText, NpgsqlParameter[]? parameters, bool ExternalConn)
         {
             //create a command and prepare it for execution
             NpgsqlCommand cmd = new NpgsqlCommand();
@@ -211,8 +211,8 @@ namespace DBHelper
             cmd.CommandText = commandText;
             cmd.CommandType = CommandType.Text;
 
-            if (commandParameters != null)
-                foreach (NpgsqlParameter p in commandParameters)
+            if (parameters != null)
+                foreach (NpgsqlParameter p in parameters)
                     cmd.Parameters.Add(p);
 
             //create a reader
@@ -240,10 +240,10 @@ namespace DBHelper
         /// <param name="connectionString">Settings to use for this command</param>
         /// <param name="commandText">Command text to use</param>
         /// <returns><see cref="NpgsqlDataReader"/> object ready to read the results of the command</returns>
-        public static NpgsqlDataReader ExecuteReader(string connectionString, string commandText)
+        public static NpgsqlDataReader? ExecuteReader(string connectionString, string commandText)
         {
             //pass through the call providing null for the set of NpgsqlParameters
-            return ExecuteReader(connectionString, commandText, (NpgsqlParameter[])null);
+            return ExecuteReader(connectionString, commandText, null);
         }
 
         /// <summary>
@@ -252,10 +252,10 @@ namespace DBHelper
         /// <param name="connection"><see cref="NpgsqlConnection"/> object to use for the command</param>
         /// <param name="commandText">Command text to use</param>
         /// <returns><see cref="NpgsqlDataReader"/> object ready to read the results of the command</returns>
-        public static NpgsqlDataReader ExecuteReader(this NpgsqlConnection connection, string commandText)
+        public static NpgsqlDataReader? ExecuteReader(this NpgsqlConnection connection, string commandText)
         {
             //pass through the call providing null for the set of NpgsqlParameters
-            return ExecuteReader(connection, null, commandText, (NpgsqlParameter[])null, true);
+            return ExecuteReader(connection, null, commandText, null, true);
         }
 
         /// <summary>
@@ -263,16 +263,16 @@ namespace DBHelper
         /// </summary>
         /// <param name="connectionString">Settings to use for this command</param>
         /// <param name="commandText">Command text to use</param>
-        /// <param name="commandParameters">Array of <see cref="NpgsqlParameter"/> objects to use with the command</param>
+        /// <param name="parameters">Array of <see cref="NpgsqlParameter"/> objects to use with the command</param>
         /// <returns><see cref="NpgsqlDataReader"/> object ready to read the results of the command</returns>
-        public static NpgsqlDataReader ExecuteReader(string connectionString, string commandText, params NpgsqlParameter[] commandParameters)
+        public static NpgsqlDataReader? ExecuteReader(string connectionString, string commandText, params NpgsqlParameter[]? parameters)
         {
             //create & open a NpgsqlConnection
             NpgsqlConnection cn = new NpgsqlConnection(connectionString);
             cn.Open();
 
             //call the private overload that takes an internally owned connection in place of the connection string
-            return ExecuteReader(cn, null, commandText, commandParameters, false);
+            return ExecuteReader(cn, null, commandText, parameters, false);
         }
 
         /// <summary>
@@ -280,12 +280,12 @@ namespace DBHelper
         /// </summary>
         /// <param name="connection">Connection to use for the command</param>
         /// <param name="commandText">Command text to use</param>
-        /// <param name="commandParameters">Array of <see cref="NpgsqlParameter"/> objects to use with the command</param>
+        /// <param name="parameters">Array of <see cref="NpgsqlParameter"/> objects to use with the command</param>
         /// <returns><see cref="NpgsqlDataReader"/> object ready to read the results of the command</returns>
-        public static NpgsqlDataReader ExecuteReader(this NpgsqlConnection connection, string commandText, params NpgsqlParameter[] commandParameters)
+        public static NpgsqlDataReader? ExecuteReader(this NpgsqlConnection connection, string commandText, params NpgsqlParameter[] parameters)
         {
             //call the private overload that takes an internally owned connection in place of the connection string
-            return ExecuteReader(connection, null, commandText, commandParameters, true);
+            return ExecuteReader(connection, null, commandText, parameters, true);
         }
 
 
@@ -299,10 +299,10 @@ namespace DBHelper
         /// <param name="connectionString">Settings to use for the update</param>
         /// <param name="commandText">Command text to use for the update</param>
         /// <returns>The first column of the first row in the result set, or a null reference if the result set is empty.</returns>
-        public static object ExecuteScalar(string connectionString, string commandText)
+        public static object? ExecuteScalar(string connectionString, string commandText)
         {
             //pass through the call providing null for the set of NpgsqlParameters
-            return ExecuteScalar(connectionString, commandText, (NpgsqlParameter[])null);
+            return ExecuteScalar(connectionString, commandText, null);
         }
 
         /// <summary>
@@ -312,7 +312,7 @@ namespace DBHelper
         /// <param name="commandText">Command text to use for the command</param>
         /// <param name="commandParameters">Parameters to use for the command</param>
         /// <returns>The first column of the first row in the result set, or a null reference if the result set is empty.</returns>
-        public static object ExecuteScalar(string connectionString, string commandText, params NpgsqlParameter[] commandParameters)
+        public static object? ExecuteScalar(string connectionString, string commandText, params NpgsqlParameter[]? commandParameters)
         {
             //create & open a NpgsqlConnection, and dispose of it after we are done.
             using (NpgsqlConnection cn = new NpgsqlConnection(connectionString))
@@ -330,10 +330,10 @@ namespace DBHelper
         /// <param name="connection"><see cref="NpgsqlConnection"/> object to use</param>
         /// <param name="commandText">Command text to use for the command</param>
         /// <returns>The first column of the first row in the result set, or a null reference if the result set is empty.</returns>
-        public static object ExecuteScalar(this NpgsqlConnection connection, string commandText)
+        public static object? ExecuteScalar(this NpgsqlConnection connection, string commandText)
         {
             //pass through the call providing null for the set of NpgsqlParameters
-            return ExecuteScalar(connection, commandText, (NpgsqlParameter[])null);
+            return ExecuteScalar(connection, commandText, null);
         }
 
         /// <summary>
@@ -341,9 +341,9 @@ namespace DBHelper
         /// </summary>
         /// <param name="connection"><see cref="NpgsqlConnection"/> object to use</param>
         /// <param name="commandText">Command text to use for the command</param>
-        /// <param name="commandParameters">Parameters to use for the command</param>
+        /// <param name="parameters">Parameters to use for the command</param>
         /// <returns>The first column of the first row in the result set, or a null reference if the result set is empty.</returns>
-        public static object ExecuteScalar(this NpgsqlConnection connection, string commandText, params NpgsqlParameter[] commandParameters)
+        public static object? ExecuteScalar(this NpgsqlConnection connection, string commandText, params NpgsqlParameter[]? parameters)
         {
             //create a command and prepare it for execution
             NpgsqlCommand cmd = new NpgsqlCommand();
@@ -351,12 +351,12 @@ namespace DBHelper
             cmd.CommandText = commandText;
             cmd.CommandType = CommandType.Text;
 
-            if (commandParameters != null)
-                foreach (NpgsqlParameter p in commandParameters)
+            if (parameters != null)
+                foreach (NpgsqlParameter p in parameters)
                     cmd.Parameters.Add(p);
 
             //execute the command & return the results
-            object retval = cmd.ExecuteScalar();
+            object? retval = cmd.ExecuteScalar();
 
             // detach the NpgsqlParameters from the command object, so they can be used again.
             cmd.Parameters.Clear();

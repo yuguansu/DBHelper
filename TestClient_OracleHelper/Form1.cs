@@ -30,7 +30,7 @@ namespace TestClient
 
             try
             {
-                DataTable dtTemp = OracleHelper.GetTableSQL(sSQL);
+                DataTable dtTemp = OracleHelper.GetTableSQL("connectionString",sSQL);
                 dgvData.DataSource = dtTemp;
                 LogLocal(rtxLog, "\nconnect finish ", 2);
             }

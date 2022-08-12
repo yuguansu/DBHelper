@@ -7,62 +7,61 @@ namespace DBHelper
 {
     public class SqlServerHelper
     {
-        /// <summary>
-        /// 连接字符串
-        /// </summary>
-        public static string connectionString = ConfigurationManager.ConnectionStrings["SQLSERVER_CONNECTION"].ToString();
-
         #region 执行SQL语句或存储过程，返回影响的行数
-
         /// <summary>
         /// 执行不带参数的SQL语句，返回影响的行数
         /// </summary>
-        /// <param name="sqlString"></param>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="strSQL"></param>
         /// <returns></returns>
-        public static int ExecuteSqlNonQuery(string sqlString)
+        public static int ExecuteSqlNonQuery(string connectionString, string strSQL)
         {
-            return ExecuteSqlNonQuery(sqlString, null);
+            return ExecuteSqlNonQuery(connectionString, strSQL, null);
         }
 
         /// <summary>
         /// 执行带参数的SQL语句，返回影响的行数
         /// </summary>
-        /// <param name="SQLString">SQL语句</param>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="strSQL">SQL语句</param>
         /// <returns>影响的记录数</returns>
-        public static int ExecuteSqlNonQuery(string SQLString, params SqlParameter[] sqlParameters)
+        public static int ExecuteSqlNonQuery(string connectionString, string strSQL, params SqlParameter[]? sqlParameters)
         {
-            return ExecuteNonQuery(SQLString, CommandType.Text, sqlParameters);
+            return ExecuteNonQuery(connectionString, strSQL, CommandType.Text, sqlParameters);
         }
 
         /// <summary>
         /// 执行不带参数的存储过程，返回影响的行数
         /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
         /// <param name="procName">存储过程名称</param>
         /// <returns></returns>
-        public static int ExecuteProcedureNonQuery(string procName)
+        public static int ExecuteProcedureNonQuery(string connectionString, string procName)
         {
-            return ExecuteProcedureNonQuery(procName, null);
+            return ExecuteProcedureNonQuery(connectionString, procName, null);
         }
 
         /// <summary>
         /// 执行带参数的存储过程，返回影响的行数
         /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
         /// <param name="procName">存储过程名称</param>
         /// <param name="sqlParameters">存储过程参数</param>
         /// <returns></returns>
-        public static int ExecuteProcedureNonQuery(string procName,params SqlParameter[] sqlParameters)
+        public static int ExecuteProcedureNonQuery(string connectionString, string procName,params SqlParameter[]? sqlParameters)
         {
-            return ExecuteNonQuery(procName, CommandType.StoredProcedure, sqlParameters);
+            return ExecuteNonQuery(connectionString, procName, CommandType.StoredProcedure, sqlParameters);
         }
 
         /// <summary>
         /// 执行SQL或者存储过程，返回影响的行数
         /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
         /// <param name="name">SQL语句或存储过程名称</param>
         /// <param name="commandType">命令类型</param>
         /// <param name="sqlParameters">参数</param>
         /// <returns></returns>
-        public static int ExecuteNonQuery(string name, CommandType commandType, params SqlParameter[] sqlParameters)
+        public static int ExecuteNonQuery(string connectionString, string name, CommandType commandType, params SqlParameter[]? sqlParameters)
         {
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
@@ -86,9 +85,9 @@ namespace DBHelper
                         int rows = command.ExecuteNonQuery();
                         return rows;
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
-                        throw e;
+                        throw;
                     }
                     finally
                     {
@@ -106,22 +105,23 @@ namespace DBHelper
         /// <summary>
         /// 执行不带参数的SQL语句，返回DataSet数据集
         /// </summary>
-        /// <param name="sqlString">SQL语句</param>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="strSQL">SQL语句</param>
         /// <returns></returns>
-        public static DataSet ExecuteSQLQuery(string sqlString)
+        public static DataSet ExecuteSQLQuery(string connectionString, string strSQL)
         {
-            return ExecuteSQLQuery(sqlString, null);
+            return ExecuteSQLQuery(connectionString, strSQL, null);
         }
 
         /// <summary>
         /// 执行带参数的SQL语句，返回DataSet数据集
         /// </summary>
-        /// <param name="sqlString">SQL语句</param>
+        /// <param name="strSQL">SQL语句</param>
         /// <param name="sqlParameters">参数</param>
         /// <returns></returns>
-        public static DataSet ExecuteSQLQuery(string sqlString, params SqlParameter[] sqlParameters)
+        public static DataSet ExecuteSQLQuery(string connectionString, string strSQL, params SqlParameter[]? sqlParameters)
         {
-            return ExecuteQuery(sqlString, CommandType.Text, sqlParameters);
+            return ExecuteQuery(connectionString, strSQL, CommandType.Text, sqlParameters);
         }
 
         /// <summary>
@@ -129,9 +129,9 @@ namespace DBHelper
         /// </summary>
         /// <param name="procName">存储过程名称</param>
         /// <returns></returns>
-        public static DataSet ExecuteProcedureQuery(string procName)
+        public static DataSet ExecuteProcedureQuery(string connectionString, string procName)
         {
-            return ExecuteProcedureQuery(procName, null);
+            return ExecuteProcedureQuery(connectionString, procName, null);
         }
 
         /// <summary>
@@ -140,9 +140,9 @@ namespace DBHelper
         /// <param name="procName">存储过程名称</param>
         /// <param name="sqlParameters">参数</param>
         /// <returns></returns>
-        public static DataSet ExecuteProcedureQuery(string procName,params SqlParameter[] sqlParameters)
+        public static DataSet ExecuteProcedureQuery(string connectionString, string procName,params SqlParameter[]? sqlParameters)
         {
-            return ExecuteQuery(procName, CommandType.StoredProcedure, sqlParameters);
+            return ExecuteQuery(connectionString, procName, CommandType.StoredProcedure, sqlParameters);
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace DBHelper
         /// <param name="commandType">命令类型</param>
         /// <param name="sqlParameters">参数</param>
         /// <returns></returns>
-        public static DataSet ExecuteQuery(string name, CommandType commandType, params SqlParameter[] sqlParameters)
+        public static DataSet ExecuteQuery(string connectionString, string name, CommandType commandType, params SqlParameter[]? sqlParameters)
         {
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
@@ -182,9 +182,9 @@ namespace DBHelper
                         adapter.Fill(dataSet);
                         return dataSet;
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
-                        throw e;
+                        throw;
                     }
                     finally
                     {
@@ -194,8 +194,6 @@ namespace DBHelper
                 }
             }
         }
-
         #endregion
-
     }
 }

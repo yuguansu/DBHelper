@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <PackageId>DBHelper.NetCore</PackageId>
-    <Version>1.0.3</Version>
+    <Version>1.1.0</Version>
     <Authors>chrlee</Authors>
     
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Description>DBHelper for Oracle, SQLServer,PostgreSQL. Based on .Net 6.</Description>
+    <Description>DBHelper for Oracle, SQLServer,PostgreSQL. Based on .Net 6. \n Source code: https://github.com/yuguansu/DBHelper</Description>
     <PackageTags>DBHelper;SQLServer;Oracle;PostgreSQL;</PackageTags>
   </PropertyGroup>
 

@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestClient_Net48_SqlSeverHe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBHelper.NetCore", "DBHelper.Net6\DBHelper.NetCore.csproj", "{5CAFC857-C13B-40A5-B6C5-01684FA02F02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBHelper.Net48", "DBHelper.Net48\DBHelper.Net48.csproj", "{08E0A021-5933-4EF7-9A19-4625C79766AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBHelper.Net", "DBHelper.Net48\DBHelper.Net.csproj", "{08E0A021-5933-4EF7-9A19-4625C79766AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

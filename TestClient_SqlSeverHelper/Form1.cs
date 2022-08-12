@@ -91,7 +91,7 @@ namespace TestClient_SqlSeverAlone
         {
             string sql = "select * from ees_ss_user";
             DataSet ds = new DataSet();
-            ds = SqlServerHelper.ExecuteSQLQuery(sql);
+            ds = SqlServerHelper.ExecuteSQLQuery("connectionString", sql);
             if (ds != null)
             {
                 dgv.DataSource = ds.Tables[0];
@@ -104,7 +104,7 @@ namespace TestClient_SqlSeverAlone
             {
                 //PROC_EES_S_PDLINE_SELECT
                 DataSet ds = new DataSet();
-                ds = SqlServerHelper.ExecuteProcedureQuery("PROC_EES_S_PDLINE_SELECT");
+                ds = SqlServerHelper.ExecuteProcedureQuery("connectionString", "PROC_EES_S_PDLINE_SELECT");
                 if (ds != null)
                 {
                     dgv.DataSource = ds.Tables[0];

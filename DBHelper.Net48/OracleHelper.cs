@@ -8,38 +8,60 @@ namespace DBHelper
 {
     public class OracleHelper
     {
-        //连接字符串
-        static string strConn = ConfigurationManager.ConnectionStrings["oraConn"].ToString();
-        
         #region 执行查询，返回DataTable对象-----------------------
-
-        public static DataTable GetTableProc(string procName)
+        /// <summary>
+        /// 执行存储过程，无参，返回DataTable
+        /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="procName">存储过程名称</param>
+        /// <returns></returns>
+        public static DataTable GetTableProc(string connectionString,string procName)
         {
-            return (GetTable(procName, null, CommandType.StoredProcedure));
-        }
-        public static DataTable GetTableProc(string procName, OracleParameter[] pas)
-        {
-            return (GetTable(procName, pas, CommandType.StoredProcedure));
-        }
-        public static DataTable GetTableSQL(string strSQL)
-        {
-            return GetTableSQL(strSQL, null);
-        }
-        public static DataTable GetTableSQL(string strSQL, OracleParameter[] pas)
-        {
-            return GetTable(strSQL, pas, CommandType.Text);
+            return (GetTable(connectionString,procName, null, CommandType.StoredProcedure));
         }
         /// <summary>
-        /// 执行查询，返回DataTable对象
+        /// 执行存储过程，有参，返回DataTable
+        /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="procName">存储过程名称</param>
+        /// <param name="parameters">存储过程参数</param>
+        /// <returns></returns>
+        public static DataTable GetTableProc(string connectionString, string procName, OracleParameter[] parameters)
+        {
+            return (GetTable(connectionString, procName, parameters, CommandType.StoredProcedure));
+        }
+        /// <summary>
+        /// 执行SQL语句，无参，返回DataTable
+        /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="strSQL">完整SQL语句</param>
+        /// <returns></returns>
+        public static DataTable GetTableSQL(string connectionString, string strSQL)
+        {
+            return GetTableSQL(connectionString, strSQL, null);
+        }
+        /// <summary>
+        /// 执行SQL语句，有参，返回DataTable
+        /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="strSQL">完整SQL语句</param>
+        /// <param name="parameters">SQL参数</param>
+        /// <returns></returns>
+        public static DataTable GetTableSQL(string connectionString, string strSQL, OracleParameter[] parameters)
+        {
+            return GetTable(connectionString, strSQL, parameters, CommandType.Text);
+        }
+        /// <summary>
+        /// 执行查询语句或存储过程，返回DataTable对象
         /// </summary>
         /// <param name="strSQL">sql语句</param>
         /// <param name="pas">参数数组</param>
         /// <param name="cmdtype">Command类型</param>
         /// <returns>DataTable对象</returns>
-        public static DataTable GetTable(string strSQL, OracleParameter[] pas, CommandType cmdtype)
+        public static DataTable GetTable(string connectionString, string strSQL, OracleParameter[] pas, CommandType cmdtype)
         {
             DataTable dt = new DataTable(); ;
-            using (OracleConnection conn = new OracleConnection(strConn))
+            using (OracleConnection conn = new OracleConnection(connectionString))
             {
                 OracleDataAdapter da = new OracleDataAdapter(strSQL, conn);
                 da.SelectCommand.CommandType = cmdtype;
@@ -51,281 +73,331 @@ namespace DBHelper
             }
             return dt;
         }
-
         #endregion
-        
+
         #region 执行查询，返回DataSet对象-------------------------
-        public static DataSet getDataSetProc(string procName)
+        /// <summary>
+        /// 执行存储过程，无参，返回DataSet
+        /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="procName">存储过程名称</param>
+        /// <returns></returns>
+        public static DataSet GetDataSetProc(string connectionString, string procName)
         {
-            return (GetDataSet(procName, null, CommandType.StoredProcedure));
+            return (GetDataSet(connectionString, procName, null, CommandType.StoredProcedure));
         }
-        public static DataSet getDataSetProc(string procName, OracleParameter[] pas)
+        /// <summary>
+        /// 执行存储过程，有参，返回DataSet
+        /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="procName">存储过程名称</param>
+        /// <param name="parameters">存储过程参数</param>
+        /// <returns></returns>
+        public static DataSet GetDataSetProc(string connectionString, string procName, OracleParameter[] parameters)
         {
-            return (GetDataSet(procName, pas, CommandType.StoredProcedure));
+            return (GetDataSet(connectionString, procName, parameters, CommandType.StoredProcedure));
         }
-
-
-        public static DataSet GetDataSetSQL(string strSQL)
+        /// <summary>
+        /// 执行SQL语句，无参，返回DataSet
+        /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="strSQL">完整SQL语句</param>
+        /// <returns></returns>
+        public static DataSet GetDataSetSQL(string connectionString, string strSQL)
         {
-            return GetDataSetSQL(strSQL, null);
+            return GetDataSetSQL(connectionString, strSQL, null);
         }
-
-        public static DataSet GetDataSetSQL(string strSQL, OracleParameter[] pas)
+        /// <summary>
+        /// 执行SQL语句，有参，返回DataSet
+        /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="strSQL">完整SQL语句</param>
+        /// <param name="parameters">SQL参数</param>
+        /// <returns></returns>
+        public static DataSet GetDataSetSQL(string connectionString, string strSQL, OracleParameter[] parameters)
         {
-            return GetDataSet(strSQL, pas, CommandType.Text);
+            return GetDataSet(connectionString, strSQL, parameters, CommandType.Text);
         }
         /// <summary>
         /// 执行查询，返回DataSet对象
         /// </summary>
-        /// <param name="strSQL">sql语句</param>
-        /// <param name="pas">参数数组</param>
+        /// <param name="strSQL">完整SQL语句</param>
+        /// <param name="parameters">SQL参数</param>
         /// <param name="cmdtype">Command类型</param>
         /// <returns>DataSet对象</returns>
-        public static DataSet GetDataSet(string strSQL, OracleParameter[] pas, CommandType cmdtype)
+        public static DataSet GetDataSet(string connectionString, string strSQL, OracleParameter[] parameters, CommandType cmdtype)
         {
             DataSet dt = new DataSet();
-            using (OracleConnection conn = new OracleConnection(strConn))
+            using (OracleConnection conn = new OracleConnection(connectionString))
             {
                 OracleDataAdapter da = new OracleDataAdapter(strSQL, conn);
                 da.SelectCommand.CommandType = cmdtype;
-                if (pas != null)
+                if (parameters != null)
                 {
-                    da.SelectCommand.Parameters.AddRange(pas);
+                    da.SelectCommand.Parameters.AddRange(parameters);
                 }
                 da.Fill(dt);
             }
             return dt;
         }
         #endregion
-        
+
         #region 执行非查询存储过程和SQL语句-----------------------------
-
-        public static int ExcuteProc(string ProcName)
-        {
-            return ExcuteSQL(ProcName, null, CommandType.StoredProcedure);
-        }
-
-        public static int ExcuteProc(string ProcName, OracleParameter[] pars)
-        {
-            return ExcuteSQL(ProcName, pars, CommandType.StoredProcedure);
-        }
-
-        public static int ExcuteSQL(string strSQL)
-        {
-            return ExcuteSQL(strSQL, null);
-        }
-
-        public static int ExcuteSQL(string strSQL, OracleParameter[] paras)
-        {
-            return ExcuteSQL(strSQL, paras, CommandType.Text);
-        }
-
-        /// 执行非查询存储过程和SQL语句
-        /// 增、删、改
+        /// <summary>
+        /// 执行非查询的存储过程，无参，返回受影响行数
         /// </summary>
-        /// <param name="strSQL">要执行的SQL语句</param>
-        /// <param name="paras">参数列表，没有参数填入null</param>
-        /// <param name="cmdType">Command类型</param>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="ProcName">存储过程名称</param>
+        /// <returns></returns>
+        public static int ExcuteProc(string connectionString, string ProcName)
+        {
+            return ExcuteSQL(connectionString, ProcName, null, CommandType.StoredProcedure);
+        }
+        /// <summary>
+        /// 执行非查询的存储过程，有参，返回受影响行数
+        /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="ProcName">存储过程名称</param>
+        /// <param name="parameters">存储过程参数</param>
+        /// <returns></returns>
+        public static int ExcuteProc(string connectionString, string ProcName, OracleParameter[] parameters)
+        {
+            return ExcuteSQL(connectionString, ProcName, parameters, CommandType.StoredProcedure);
+        }
+        /// <summary>
+        /// 执行非查询的SQL，无参，返回受影响行数
+        /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="strSQL">完整SQL语句</param>
+        /// <returns></returns>
+        public static int ExcuteSQL(string connectionString, string strSQL)
+        {
+            return ExcuteSQL(connectionString, strSQL, null);
+        }
+        /// <summary>
+        /// 执行非查询的SQL，有参，返回受影响行数
+        /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="strSQL">完整SQL语句</param>
+        /// <param name="parameters">SQL参数</param>
+        /// <returns></returns>
+        public static int ExcuteSQL(string connectionString, string strSQL, OracleParameter[] parameters)
+        {
+            return ExcuteSQL(connectionString, strSQL, parameters, CommandType.Text);
+        }
+        /// <summary>
+        /// 执行非查询存储过程和SQL语句:增、删、改
+        /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="strSQL">完整SQL语句</param>
+        /// <param name="parameters">参数列表，没有参数填入null</param>
+        /// <param name="cmdType">Command类型,Text,StoredProcedure</param>
         /// <returns>返回影响行数</returns>
-        public static int ExcuteSQL(string strSQL, OracleParameter[] paras, CommandType cmdType)
+        public static int ExcuteSQL(string connectionString, string strSQL, OracleParameter[] parameters, CommandType cmdType)
         {
             int i = 0;
-            using (OracleConnection conn = new OracleConnection(strConn))
+            using (OracleConnection conn = new OracleConnection(connectionString))
             {
                 OracleCommand cmd = new OracleCommand(strSQL, conn);
                 cmd.CommandType = cmdType;
-                if (paras != null)
+                if (parameters != null)
                 {
-                    cmd.Parameters.AddRange(paras);
+                    cmd.Parameters.AddRange(parameters);
                 }
                 conn.Open();
                 i = cmd.ExecuteNonQuery();
                 conn.Close();
             }
             return i;
-
         }
-
-
         #endregion
-        
+
         #region 执行查询返回第一行，第一列---------------------------------
-
-        public static int ExcuteScalarSQL(string strSQL)
+        /// <summary>
+        /// 返回第一行，第一列
+        /// </summary>
+        /// <param name="strSQL">完整SQL语句</param>
+        /// <returns></returns>
+        public static int ExcuteScalarSQL(string connectionString, string strSQL)
         {
-            return ExcuteScalarSQL(strSQL, null);
+            return ExcuteScalarSQL(connectionString, strSQL, null);
         }
-
-        public static int ExcuteScalarSQL(string strSQL, OracleParameter[] paras)
+        /// <summary>
+        /// 执行查询返回第一行，第一列
+        /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="strSQL">完整SQL语句</param>
+        /// <param name="parameters">SQL参数列表</param>
+        /// <returns></returns>
+        public static int ExcuteScalarSQL(string connectionString, string strSQL, OracleParameter[] parameters)
         {
-            return ExcuteScalarSQL(strSQL, paras, CommandType.Text);
+            return ExcuteScalarSQL(connectionString, strSQL, parameters, CommandType.Text);
         }
-        public static int ExcuteScalarProc(string strSQL, OracleParameter[] paras)
+        public static int ExcuteScalarProc(string connectionString, string strSQL, OracleParameter[] parameters)
         {
-            return ExcuteScalarSQL(strSQL, paras, CommandType.StoredProcedure);
+            return ExcuteScalarSQL(connectionString, strSQL, parameters, CommandType.StoredProcedure);
         }
         /// <summary>
         /// 执行SQL语句，返回第一行，第一列
         /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
         /// <param name="strSQL">要执行的SQL语句</param>
-        /// <param name="paras">参数列表，没有参数填入null</param>
+        /// <param name="parameters">参数列表，没有参数填入null</param>
         /// <returns>返回影响行数</returns>
-        public static int ExcuteScalarSQL(string strSQL, OracleParameter[] paras, CommandType cmdType)
+        public static int ExcuteScalarSQL(string connectionString, string strSQL, OracleParameter[] parameters, CommandType cmdType)
         {
             int i = 0;
-            using (OracleConnection conn = new OracleConnection(strConn))
+            using (OracleConnection conn = new OracleConnection(connectionString))
             {
                 OracleCommand cmd = new OracleCommand(strSQL, conn);
                 cmd.CommandType = cmdType;
-                if (paras != null)
+                if (parameters != null)
                 {
-                    cmd.Parameters.AddRange(paras);
+                    cmd.Parameters.AddRange(parameters);
                 }
                 conn.Open();
                 i = Convert.ToInt32(cmd.ExecuteScalar());
                 conn.Close();
             }
             return i;
-
         }
-
-
         #endregion
-        
+
         #region 查询获取单个值------------------------------------
         /// <summary>
         /// 调用不带参数的存储过程获取单个值
         /// </summary>
-        /// <param name="ProcName"></param>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="ProcName">存储过程名称</param>
         /// <returns></returns>
-        public static object GetObjectByProc(string ProcName)
+        public static object GetObjectByProc(string connectionString, string ProcName)
         {
-            return GetObjectByProc(ProcName, null);
+            return GetObjectByProc(connectionString, ProcName, null);
         }
         /// <summary>
         /// 调用带参数的存储过程获取单个值
         /// </summary>
-        /// <param name="ProcName"></param>
-        /// <param name="paras"></param>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="ProcName">存储过程名称</param>
+        /// <param name="parameters">存储过程参数</param>
         /// <returns></returns>
-        public static object GetObjectByProc(string ProcName, OracleParameter[] paras)
+        public static object GetObjectByProc(string connectionString, string ProcName, OracleParameter[] parameters)
         {
-            return GetObject(ProcName, paras, CommandType.StoredProcedure);
+            return GetObject(connectionString, ProcName, parameters, CommandType.StoredProcedure);
         }
         /// <summary>
         /// 根据sql语句获取单个值
         /// </summary>
-        /// <param name="strSQL"></param>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="strSQL">完整SQL</param>
         /// <returns></returns>
-        public static object GetObject(string strSQL)
+        public static object GetObject(string connectionString, string strSQL)
         {
-            return GetObject(strSQL, null);
+            return GetObject(connectionString, strSQL, null);
         }
         /// <summary>
         /// 根据sql语句 和 参数数组获取单个值
         /// </summary>
-        /// <param name="strSQL"></param>
-        /// <param name="paras"></param>
+        /// <param name="connectionString">数据库连接字符串</param>
+        /// <param name="strSQL">完整SQL</param>
+        /// <param name="parameters">SQL参数</param>
         /// <returns></returns>
-        public static object GetObject(string strSQL, OracleParameter[] paras)
+        public static object GetObject(string connectionString, string strSQL, OracleParameter[] parameters)
         {
-            return GetObject(strSQL, paras, CommandType.Text);
+            return GetObject(connectionString, strSQL, parameters, CommandType.Text);
         }
 
         /// <summary>
         /// 执行SQL语句，返回首行首列
         /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
         /// <param name="strSQL">要执行的SQL语句</param>
-        /// <param name="paras">参数列表，没有参数填入null</param>
+        /// <param name="parameters">参数列表，没有参数填入null</param>
         /// <returns>返回的首行首列</returns>
-        public static object GetObject(string strSQL, OracleParameter[] paras, CommandType cmdtype)
+        public static object GetObject(string connectionString, string strSQL, OracleParameter[] parameters, CommandType cmdtype)
         {
-            object o = null;
-            using (OracleConnection conn = new OracleConnection(strConn))
+            object o;
+            using (OracleConnection conn = new OracleConnection(connectionString))
             {
                 OracleCommand cmd = new OracleCommand(strSQL, conn);
                 cmd.CommandType = cmdtype;
-                if (paras != null)
+                if (parameters != null)
                 {
-                    cmd.Parameters.AddRange(paras);
-
+                    cmd.Parameters.AddRange(parameters);
                 }
-
                 conn.Open();
                 o = cmd.ExecuteScalar();
                 conn.Close();
             }
             return o;
-
         }
-
-
-
         #endregion
-        
+
         #region 查询获取DataReader------------------------------------
         /// <summary>
         /// 调用不带参数的存储过程，返回DataReader对象
         /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
         /// <param name="procName">存储过程名称</param>
         /// <returns>DataReader对象</returns>
-        public static OracleDataReader GetReaderByProc(string procName)
+        public static OracleDataReader GetReaderByProc(string connectionString, string procName)
         {
-            return GetReaderByProc(procName, null);
+            return GetReaderByProc(connectionString, procName, null);
         }
         /// <summary>
         /// 调用带有参数的存储过程，返回DataReader对象
         /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
         /// <param name="procName">存储过程名</param>
-        /// <param name="paras">参数数组</param>
+        /// <param name="parameters">参数数组</param>
         /// <returns>DataReader对象</returns>
-        public static OracleDataReader GetReaderByProc(string procName, OracleParameter[] paras)
+        public static OracleDataReader GetReaderByProc(string connectionString, string procName, OracleParameter[] parameters)
         {
-            return GetReader(procName, paras, CommandType.StoredProcedure);
+            return GetReader(connectionString, procName, parameters, CommandType.StoredProcedure);
         }
         /// <summary>
         /// 根据sql语句返回DataReader对象
         /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
         /// <param name="strSQL">sql语句</param>
         /// <returns>DataReader对象</returns>
-        public static OracleDataReader GetReader(string strSQL)
+        public static OracleDataReader GetReader(string connectionString, string strSQL)
         {
-            return GetReader(strSQL, null);
+            return GetReader(connectionString, strSQL, null);
         }
         /// <summary>
         /// 根据sql语句和参数返回DataReader对象
         /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
         /// <param name="strSQL">sql语句</param>
-        /// <param name="paras">参数数组</param>
+        /// <param name="parameters">参数数组</param>
         /// <returns>DataReader对象</returns>
-        public static OracleDataReader GetReader(string strSQL, OracleParameter[] paras)
+        public static OracleDataReader GetReader(string connectionString, string strSQL, OracleParameter[] parameters)
         {
-            return GetReader(strSQL, paras, CommandType.Text);
+            return GetReader(connectionString, strSQL, parameters, CommandType.Text);
         }
         /// <summary>
         /// 查询SQL语句获取DataReader
         /// </summary>
+        /// <param name="connectionString">数据库连接字符串</param>
         /// <param name="strSQL">查询的SQL语句</param>
-        /// <param name="paras">参数列表，没有参数填入null</param>
+        /// <param name="parameters">参数列表，没有参数填入null</param>
         /// <returns>查询到的DataReader（关闭该对象的时候，自动关闭连接）</returns>
-        public static OracleDataReader GetReader(string strSQL, OracleParameter[] paras, CommandType cmdtype)
+        public static OracleDataReader GetReader(string connectionString, string strSQL, OracleParameter[] parameters, CommandType cmdtype)
         {
-            OracleDataReader sqldr = null;
-            OracleConnection conn = new OracleConnection(strConn);
+            OracleDataReader sqldr;
+            OracleConnection conn = new OracleConnection(connectionString);
             OracleCommand cmd = new OracleCommand(strSQL, conn);
             cmd.CommandType = cmdtype;
-            if (paras != null)
+            if (parameters != null)
             {
-                cmd.Parameters.AddRange(paras);
+                cmd.Parameters.AddRange(parameters);
             }
             conn.Open();
             //CommandBehavior.CloseConnection的作用是如果关联的DataReader对象关闭，则连接自动关闭
             sqldr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             return sqldr;
         }
-
-
-
         #endregion
         
         /*
